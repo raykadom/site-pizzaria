@@ -1,0 +1,138 @@
+// importa funções utilitárias para trabalhar com SQLite
+const { ready, query, run, get } = require('../database/sqlite');
+
+
+// função para transformar os dados do banco (row) em um objeto padrão
+function formatarCliente(row) {
+  // se não existir resultado, retorna null
+  if (!row) return null;
+
+  return {
+    _id:        row.id, // Alias para compatibilidade (ex: MongoDB-like)
+    id:         row.id,
+    nome:       row.nome,
+    telefone:   row.telefone,
+
+    // converte o campo endereco de JSON string para objeto
+    endereco:   JSON.parse(row.endereco || '{}'),
+
+    observacoes: row.observacoes,
+
+    // Converte valor numérico (0/1) para booleano
+    ativo:      row.ativo === 1,
+
+    createdAt:  row.created_at,
+    updatedAt:  row.updated_at,
+  };
+}
+
+
+// objeto que representa o "model" Cliente
+const Cliente = {
+
+  // busca todos os clientes ativos, com ou sem filtro de busca
+  async findAll(busca = '') {
+    await ready; // garante que o banco está pronto
+
+    let rows;
+
+    if (busca) {
+      // se houver busca, usa like para filtrar por nome ou telefone
+      const t = `%${busca}%`;
+
+      rows = query(
+        'SELECT * FROM clientes WHERE ativo = 1 AND (nome LIKE ? OR telefone LIKE ?) ORDER BY nome',
+        [t, t]
+      );
+    } else {
+      // se não houver busca, retorna todos os clientes ativos
+      rows = query('SELECT * FROM clientes WHERE ativo = 1 ORDER BY nome');
+    }
+
+    // converte cada linha em objeto formatado
+    return rows.map(formatarCliente);
+  },
+
+  // busca um cliente pelo ID
+  async findById(id) {
+    await ready;
+
+    // executa a query e formata o resultado
+    return formatarCliente(
+      get('SELECT * FROM clientes WHERE id = ?', [id])
+    );
+  },
+
+  // cria um novo cliente no banco
+  async create({ nome, telefone, endereco = {}, observacoes = '' }) {
+    await ready;
+
+    // insere no banco
+    const info = run(
+      'INSERT INTO clientes (nome, telefone, endereco, observacoes) VALUES (?, ?, ?, ?)',
+      [
+        nome.trim(),                // remove espaços extras
+        telefone.trim(),
+        JSON.stringify(endereco),   // converte objeto para JSON
+        observacoes
+      ]
+    );
+
+    // retorna o cliente recém-criado
+    return this.findById(info.lastInsertRowid);
+  },
+
+  // atualiza um cliente que já existe
+  async update(id, { nome, telefone, endereco, observacoes, ativo }) {
+    await ready;
+
+    // busca o cliente atual
+    const atual = get('SELECT * FROM clientes WHERE id = ?', [id]);
+
+    // se não existir, retorna null
+    if (!atual) return null;
+
+    // recupera o endereço atual (convertendo de JSON)
+    const endAtual = JSON.parse(atual.endereco || '{}');
+
+    // mescla o endereço atual com o novo (se fornecido)
+    const endFinal = endereco ? { ...endAtual, ...endereco } : endAtual;
+
+    // executa a atualização no banco
+    run(`
+      UPDATE clientes SET
+        nome        = ?,  // Atualiza nome (ou mantém o atual)
+        telefone    = ?,  // Atualiza telefone
+        endereco    = ?,  // Atualiza endereço (em JSON)
+        observacoes = ?,  // Atualiza observações
+        ativo       = ?,  // Atualiza status (0 ou 1)
+        updated_at  = datetime('now') // Atualiza timestamp
+      WHERE id = ?
+    `, [
+      nome        ?? atual.nome, // Usa novo valor ou mantém o antigo
+      telefone    ?? atual.telefone,
+      JSON.stringify(endFinal),
+      observacoes ?? atual.observacoes,
+      // Converte booleano para 0 ou 1
+      ativo !== undefined ? (ativo ? 1 : 0) : atual.ativo,
+      id
+    ]);
+
+    // Retorna o cliente atualizado
+    return this.findById(id);
+  },
+
+  // Remove um cliente do banco
+  async delete(id) {
+    await ready;
+
+    // Executa o DELETE
+    const info = run('DELETE FROM clientes WHERE id = ?', [id]);
+
+    // Retorna true se alguma linha foi afetada
+    return info.changes > 0;
+  },
+};
+
+// Exporta o model Cliente
+module.exports = Cliente;

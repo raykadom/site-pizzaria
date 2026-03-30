@@ -1,0 +1,18 @@
+Título e descrição do sistema.
+SISTEMA DE GESTÃO PARA PIZZARIA
+
+descrição:Esse projeto consiste em um sistema web 
+para gerenciamento de pedidos de uma pizzaria. A 
+aplicação permite o controle de usuários, clientes, pedidos e mesas,
+com diferentes níveis de acesso.
+O sistema foi desenvolvido a partir de um código legado incompleto,
+sendo necessário organizar , corrigir e documentar toda a estrutura.
+
+TECNOLOGIAS UTILIZADAS
+-NODE.JS
+-JAVASCRIPT
+-EXPRESS
+-JSON
+-HTML/CSS
+
+PRÉ-REQUISITO

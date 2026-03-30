@@ -1,0 +1,281 @@
+/* ================= VARIÁVEIS GLOBAIS ================= */
+:root {
+  --bg:      #0f0f0f;      /* Cor de fundo principal */
+  --surf:    #181818;      /* Superfície (cards, sidebar) */
+  --surf2:   #212121;      /* Superfície secundária */
+  --border:  #2a2a2a;      /* Cor padrão de bordas */
+  --red:     #e8372a;      /* Cor principal (tema pizzaria) */
+  --red-dk:  #c02d22;      /* Vermelho mais escuro (hover) */
+  --gold:    #f5c842;      /* Destaque (status/preparo) */
+  --green:   #29c76f;      /* Sucesso */
+  --blue:    #3b82f6;      /* Informação */
+  --purple:  #8b5cf6;      /* Categoria premium */
+  --orange:  #ff7d3b;      /* Avisos */
+  --text:    #f0f0f0;      /* Texto principal */
+  --muted:   #777;         /* Texto secundário */
+  --r:       10px;         /* Border radius padrão */
+}
+
+/* RESET PADRÃO */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ================= BODY ================= */
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* ================= LOGIN ================= */
+#tela-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 55% 40%, #1c0b0b 0%, var(--bg) 65%);
+}
+
+/* Caixa do login */
+.login-box {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 42px 38px;
+  max-width: 390px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+
+/* Logo do login */
+.login-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Ícone grande */
+.login-logo .em {
+  font-size: 2.8rem;
+}
+
+/* Título */
+.login-logo h1 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--red);
+}
+
+/* Texto menor */
+.login-logo p {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Mensagem de erro */
+.login-erro {
+  background: rgba(232,55,42,.13);
+  border: 1px solid rgba(232,55,42,.3);
+  color: #ff7e70;
+  padding: 9px;
+  border-radius: 8px;
+  display: none;
+}
+
+/* ================= LAYOUT PRINCIPAL ================= */
+#app { display: none; }
+
+/* Quando logado */
+body.logado #tela-login { display: none; }
+body.logado #app { display: flex; }
+
+/* ================= SIDEBAR ================= */
+#sidebar {
+  width: 220px;
+  position: fixed;
+  background: var(--surf);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo da sidebar */
+.sb-logo {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Nome do sistema */
+.sb-logo h1 {
+  font-size: 1rem;
+  color: var(--red);
+}
+
+/* Usuário logado */
+.sb-user {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Menu */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: .15s;
+}
+
+/* Hover menu */
+.nav-btn:hover {
+  background: var(--surf2);
+  color: var(--text);
+}
+
+/* Item ativo */
+.nav-btn.ativo {
+  background: rgba(232,55,42,.11);
+  color: var(--red);
+}
+
+/* ================= CONTEÚDO ================= */
+#conteudo {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header da página */
+.pg-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+
+/* Cabeçalho do card */
+.card-head {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ================= TABELAS ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Cabeçalho tabela */
+thead th {
+  font-size: 0.66rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Linhas */
+tbody tr:hover {
+  background: var(--surf2);
+}
+
+/* ================= BADGES ================= */
+.badge {
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.69rem;
+}
+
+/* Status exemplo */
+.b-recebido { background: rgba(59,130,246,.18); color: #93c5fd; }
+.b-entregue { background: rgba(41,199,111,.18); color: var(--green); }
+
+/* ================= BOTÕES ================= */
+.btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Botão vermelho */
+.btn-red {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ================= FORMULÁRIOS ================= */
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  background: var(--surf2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+}
+
+/* Focus */
+input:focus {
+  border-color: var(--red);
+}
+
+/* ================= MODAL ================= */
+.modal-bg {
+  display: none;
+  position: fixed;
+  background: rgba(0,0,0,.78);
+}
+
+/* Modal ativo */
+.modal-bg.open {
+  display: flex;
+}
+
+/* Caixa modal */
+.modal {
+  background: var(--surf);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+/* ================= TOAST ================= */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: .28s;
+}
+
+/* Mostrar toast */
+#toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ================= LOADING ================= */
+.spin {
+  border-top-color: var(--red);
+  animation: spin .6s linear infinite;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 860px) {
+
+  /* Sidebar compacta */
+  #sidebar { width: 52px; }
+
+  /* Conteúdo ajusta */
+  #conteudo { margin-left: 52px; }
+
+  /* Grid vira coluna */
+  .dash-grid { grid-template-columns: 1fr; }
+
+}
