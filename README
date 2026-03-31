@@ -1,18 +1,124 @@
-Título e descrição do sistema.
-SISTEMA DE GESTÃO PARA PIZZARIA
+// Sistema de Gestão para Pizzaria
 
-descrição:Esse projeto consiste em um sistema web 
-para gerenciamento de pedidos de uma pizzaria. A 
-aplicação permite o controle de usuários, clientes, pedidos e mesas,
-com diferentes níveis de acesso.
-O sistema foi desenvolvido a partir de um código legado incompleto,
-sendo necessário organizar , corrigir e documentar toda a estrutura.
+//📌 Descrição
 
-TECNOLOGIAS UTILIZADAS
--NODE.JS
--JAVASCRIPT
--EXPRESS
--JSON
--HTML/CSS
+//Este projeto consiste em um sistema web para gerenciamento de pedidos de uma pizzaria. A aplicação permite o controle de usuários, clientes, pedidos e mesas, com diferentes níveis de acesso.
+// O sistema foi desenvolvido a partir de um código legado incompleto, sendo necessário organizar, corrigir e documentar toda a estrutura.
 
-PRÉ-REQUISITO
+//⸻
+
+//⚙️ Tecnologias Utilizadas
+// •	Node.js
+// •	JavaScript
+// •	Express
+// •	JSON
+// •	HTML/CSS (caso tenha front-end)
+// ⸻
+
+// 📋 Pré-requisitos
+// Antes de começar, você precisa ter instalado:
+// •	Node.js
+// •	npm (gerenciador de pacotes)
+
+// ⸻
+// 🚀 Instalação e Execução
+clone o repositório
+( Pegar o link do repositório criado, nesse caso "site-pizzaria", e faça um git
+clone no VS.
+Acesse a pasta do projeto
+No terminal, vamos acessar a pasta, pode ser acessado assim que clicar no
+botão direito da pasta, e aparecer o comando "abrir no terminal integrado" ou 
+"cd site-pizzaria".
+ Após isso, insira o "node.js", onde vai começar a rodar a programação, e nós levarmos a página inicial
+do site da pizzaria.
+//
+
+// 🔑 Funcionalidades
+// •	Autenticação com JWT
+// •	Controle de usuários (Admin, Atendente, Garçom)
+// •	Cadastro de clientes
+// •	CRUD de pizzas
+// •	Gerenciamento de pedidos
+// •	Controle de mesas
+
+//⸻
+
+//🧪 Como testar
+
+//Você pode testar usando:
+// •	Postman
+// •	Insomnia
+
+Exemplos:
+//•	Criar usuário
+//•	Fazer login
+//•	Criar pedido
+//•	Listar pizzas
+ //📁 Estrutura de Pastas
+SITE-PIZZARIA/
+│
+├── node_modules/
+│
+├── public/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+│
+├── src/
+│   ├── database/
+│   │   └── sqlite.js
+│   │
+│   ├── middlewares/
+│   │   └── auth.js
+│   │
+│   ├── models/
+│   │   ├── Cliente.js
+│   │   ├── Pedido.js
+│   │   ├── Pizza.js
+│   │   └── Usuario.js
+│   │
+│   └── routes/
+│       └── index.js
+│
+├── .env.example
+├── .gitignore
+├── index.js
+├── package-lock.json
+├── package.json
+├── pizzaria.db
+├── README.md
+└── seed.js
+
+ //🔐 Credenciais de Teste
+// LOGIN
+// • senha 
+// • email
+
+
+ //⚠️ Desafios Encontrados
+ // •	Difiuldade para fazer o código rodar
+ // •	Falta de documentação
+ // •	Dificuldade em entender algumas partes do código
+ // •	Ajuste das rotas e imports (require)
+
+//✔️ Soluções:
+// •	Reorganização em pastas
+// •	Padronização do código
+// •	Testes manuais das rotas
+// •	Criação deste README
+
+//⸻
+
+//🔮 Melhorias Futuras
+//•	Interface gráfica (front-end completo)
+//•	Entender melhor o código e aprimorar as técnicas
+//•	Sistema de pagamento
+//•	Relatórios de vendas
+//•	Melhor segurança (criptografia, validações)
+
+//⸻
+
+//📌 Autor(es)
+
+//Projeto desenvolvido como atividade prática de engenharia reversa,
+//  por Maria Eduarda Silva freitas e Rayka Dom Pedro
